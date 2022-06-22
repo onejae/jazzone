@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native"
 import { Text, View } from "../components/Themed"
 import { MenuButton } from "../components/MenuButton"
+import { MusicSheet } from "../components/MusicSheet"
 
 export default function VoicingScreen() {
   return (
@@ -8,6 +9,7 @@ export default function VoicingScreen() {
       <View style={styles.separator} lightColor="#eee" />
       <Text style={styles.title}> C major Block chord</Text>
       <View style={styles.separator} lightColor="#eee" />
+      <MusicSheet />
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
         <MenuButton>block voicing</MenuButton>
@@ -39,7 +41,6 @@ export default function VoicingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
   },
   title: {
     fontSize: 20,
@@ -54,5 +55,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  musicSheet: {
+    height: 500,
   },
 })
