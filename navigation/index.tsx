@@ -7,20 +7,20 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
-} from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import * as React from "react"
-import { ColorSchemeName } from "react-native"
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
+import { ColorSchemeName } from "react-native";
 
-import MainScreen from "../screens/MainScreen"
-import VoicingScreen from "../screens/VoicingScreen"
-import { RootStackParamList } from "../types"
-import LinkingConfiguration from "./LinkingConfiguration"
+import MainScreen from "../screens/MainScreen";
+import VoicingScreen from "../screens/VoicingScreen";
+import { RootStackParamList } from "../types";
+import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation({
   colorScheme,
 }: {
-  colorScheme: ColorSchemeName
+  colorScheme: ColorSchemeName;
 }) {
   return (
     <NavigationContainer
@@ -29,18 +29,18 @@ export default function Navigation({
     >
       <RootNavigator />
     </NavigationContainer>
-  )
+  );
 }
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Root">
+    <Stack.Navigator initialRouteName="Voicing">
       <Stack.Screen
         name="Root"
         component={MainScreen}
@@ -52,5 +52,5 @@ function RootNavigator() {
         options={{ headerShown: false }}
       ></Stack.Screen>
     </Stack.Navigator>
-  )
+  );
 }

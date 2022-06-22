@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   musicSheet: {
-    height: 500,
+    height: 200,
   },
 })
