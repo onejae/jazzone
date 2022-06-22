@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native"
 import { Text, View } from "../components/Themed"
 import { MenuButton } from "../components/MenuButton"
 import { MusicSheet } from "../components/MusicSheet"
+import { SelectButton } from "../components/SelectButton"
 
 export default function VoicingScreen() {
   return (
@@ -12,8 +13,8 @@ export default function VoicingScreen() {
       <MusicSheet />
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        <MenuButton>block voicing</MenuButton>
-        <MenuButton>drop2nd</MenuButton>
+        <SelectButton>block voicing</SelectButton>
+        <SelectButton>drop2nd</SelectButton>
       </View>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>

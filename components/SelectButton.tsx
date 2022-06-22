@@ -7,8 +7,7 @@ export function SelectButton(props: any) {
 
   const touchProps = {
     style: isPress ? styles.buttonPress : styles.button,
-    onPressOut: () => setIsPress(false),
-    onPressIn: () => setIsPress(true),
+    onPress: () => setIsPress(!isPress),
     ...props,
   }
 
@@ -28,21 +27,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    border: "1px solid #F28442",
+    borderWidth: 1,
+    borderColor: "#F28442",
     borderRadius: 5,
-    padding: "10px",
-    display: "inline",
-    marginLeft: "10px",
-    marginRight: "10px",
+    padding: 10,
+    margin: 5,
   },
   buttonPress: {
-    border: "1px solid #F28442",
     backgroundColor: "#F28442",
     borderRadius: 5,
-    padding: "10px",
-    display: "inline",
-    marginLeft: "10px",
-    marginRight: "10px",
+    borderWidth: 1,
+    borderColor: "#F28442",
+    padding: 10,
+    margin: 5,
   },
   buttonText: {
     color: "#F28442",
