@@ -5,7 +5,7 @@ import { MusicSheet } from "../components/MusicSheet";
 import { SelectButton } from "../components/SelectButton";
 import { useState } from "react";
 import { Voicings, Voicing } from "../constants/Voicing";
-import KEYS from "../constants/Key";
+import { Keys } from "../constants/Key";
 import React from "react";
 import { generateVoicingWithTopNote } from "../lib/voicing";
 import { NoteIndex } from "../constants/Note";
@@ -18,12 +18,12 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
   function handleVoicing(voicing: Voicing) {
     setVoicing(voicing);
 
-    const notes = generateVoicingWithTopNote(voicing, {
+    const notes = generateVoicingWithTopNote({ name: "C", idx: 0 }, voicing, {
       noteIndex: NoteIndex.A0,
     });
     const abcString = noteToAbcjsString(notes);
 
-    console.log(abcString)
+    console.log(abcString);
   }
 
   function handleKey(idx: number) {
@@ -57,14 +57,14 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
       </View>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        {Object.entries(KEYS).map((item, idx) => {
+        {Keys.map((item, idx) => {
           return (
             <SelectButton
               key={idx}
               selected={idx === key}
               onPress={() => handleKey(idx)}
             >
-              {item[1].name}
+              {item.name}
             </SelectButton>
           );
         })}
