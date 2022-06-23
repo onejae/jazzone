@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from "react-native"
 import { Pressable } from "react-native"
 import { withSafeAreaInsets } from "react-native-safe-area-context"
 import { Text, View } from "../components/Themed"
-import { MenuButton } from "../components/MenuButton"
+import { ToggleButton } from "../components/MenuButton"
 import Navigation from "../navigation"
 
 export default function MainScreen(props: any) {
@@ -11,11 +11,11 @@ export default function MainScreen(props: any) {
       <Text style={styles.title}> Jazz One</Text>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.menu}>
-        <MenuButton onPress={() => props.navigation.navigate("Voicing")}>
+        <ToggleButton onPress={() => props.navigation.navigate("Voicing")}>
           Voicing
-        </MenuButton>
-        <MenuButton>Scale</MenuButton>
-        <MenuButton>2-5-1</MenuButton>
+        </ToggleButton>
+        <ToggleButton>Scale</ToggleButton>
+        <ToggleButton>2-5-1</ToggleButton>
       </View>
     </View>
   )

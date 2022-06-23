@@ -2,7 +2,7 @@ import { useState } from "react"
 import { StyleSheet } from "react-native"
 import { Text, Pressable } from "react-native"
 
-export function MenuButton(props: any) {
+export function ToggleButton(props: any) {
   const [isPress, setIsPress] = useState(false)
 
   const touchProps = {

@@ -1,10 +1,25 @@
-import { StyleSheet } from "react-native"
-import { Text, View } from "../components/Themed"
-import { MenuButton } from "../components/MenuButton"
-import { MusicSheet } from "../components/MusicSheet"
-import { SelectButton } from "../components/SelectButton"
+import { StyleSheet } from "react-native";
+import { Text, View } from "../components/Themed";
+import { ToggleButton } from "../components/MenuButton";
+import { MusicSheet } from "../components/MusicSheet";
+import { SelectButton } from "../components/SelectButton";
+import { useState } from "react";
+import VOICINGS from "../constants/Voicing";
+import KEYS from "../constants/Key";
+import React from "react";
 
-export default function VoicingScreen() {
+export const VoicingScreen = React.forwardRef((props, ref) => {
+  const [voicing, setVoicing] = useState(0);
+  const [key, setKey] = useState(0);
+
+  function handleVoicing(idx: number) {
+    setVoicing(idx);
+  }
+
+  function handleKey(idx: number) {
+    setKey(idx);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" />
@@ -13,31 +28,40 @@ export default function VoicingScreen() {
       <MusicSheet />
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        <SelectButton>block voicing</SelectButton>
-        <SelectButton>drop2nd</SelectButton>
+        {Object.entries(VOICINGS).map((item, idx) => {
+          return (
+            <SelectButton
+              selected={idx === voicing}
+              name={item[1].name}
+              key={idx}
+              onPress={() => handleVoicing(idx)}
+            >
+              {item[1].name}
+            </SelectButton>
+          );
+        })}
       </View>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        <MenuButton>Maj7</MenuButton>
+        <ToggleButton>Maj7</ToggleButton>
       </View>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        <MenuButton>C</MenuButton>
-        <MenuButton>Db</MenuButton>
-        <MenuButton>D</MenuButton>
-        <MenuButton>Eb</MenuButton>
-        <MenuButton>E</MenuButton>
-        <MenuButton>F</MenuButton>
-        <MenuButton>F#</MenuButton>
-        <MenuButton>G</MenuButton>
-        <MenuButton>Ab</MenuButton>
-        <MenuButton>A</MenuButton>
-        <MenuButton>Bb</MenuButton>
-        <MenuButton>B</MenuButton>
+        {Object.entries(KEYS).map((item, idx) => {
+          return (
+            <SelectButton
+              key={idx}
+              selected={idx === key}
+              onPress={() => handleKey(idx)}
+            >
+              {item[1].name}
+            </SelectButton>
+          );
+        })}
       </View>
     </View>
-  )
-}
+  );
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -60,4 +84,4 @@ const styles = StyleSheet.create({
   musicSheet: {
     height: 200,
   },
-})
+});

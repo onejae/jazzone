@@ -13,7 +13,7 @@ import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
 import MainScreen from "../screens/MainScreen";
-import VoicingScreen from "../screens/VoicingScreen";
+import { VoicingScreen } from "../screens/VoicingScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 

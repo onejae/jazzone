@@ -1,24 +1,38 @@
-import { useState } from "react"
-import { StyleSheet } from "react-native"
-import { Text, Pressable } from "react-native"
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Text, Pressable } from "react-native";
 
-export function SelectButton(props: any) {
-  const [isPress, setIsPress] = useState(false)
+export const SelectButton = (props: any) => {
+  const [touch, setTouch] = useState(false);
 
   const touchProps = {
-    style: isPress ? styles.buttonPress : styles.button,
-    onPress: () => setIsPress(!isPress),
+    style:
+      props.selected === true || touch === true
+        ? styles.buttonPress
+        : styles.button,
+    onPressIn: () => {
+      setTouch(true);
+    },
+    onPressOut: () => {
+      setTouch(false);
+    },
     ...props,
-  }
+  };
 
   return (
     <Pressable {...touchProps}>
-      <Text style={isPress ? styles.buttonTextPress : styles.buttonText}>
+      <Text
+        style={
+          props.selected === true || touch === true
+            ? styles.buttonTextPress
+            : styles.buttonText
+        }
+      >
         {props.children}
       </Text>
     </Pressable>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -47,4 +61,4 @@ const styles = StyleSheet.create({
   buttonTextPress: {
     color: "white",
   },
-})
+});
