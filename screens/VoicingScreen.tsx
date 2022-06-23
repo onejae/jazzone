@@ -4,16 +4,26 @@ import { ToggleButton } from "../components/MenuButton";
 import { MusicSheet } from "../components/MusicSheet";
 import { SelectButton } from "../components/SelectButton";
 import { useState } from "react";
-import VOICINGS from "../constants/Voicing";
+import { Voicings, Voicing } from "../constants/Voicing";
 import KEYS from "../constants/Key";
 import React from "react";
+import { generateVoicingWithTopNote } from "../lib/voicing";
+import { NoteIndex } from "../constants/Note";
+import { noteToAbcjsString } from "../lib/abcjs";
 
 export const VoicingScreen = React.forwardRef((props, ref) => {
-  const [voicing, setVoicing] = useState(0);
+  const [voicing, setVoicing] = useState(Voicings[0]);
   const [key, setKey] = useState(0);
 
-  function handleVoicing(idx: number) {
-    setVoicing(idx);
+  function handleVoicing(voicing: Voicing) {
+    setVoicing(voicing);
+
+    const notes = generateVoicingWithTopNote(voicing, {
+      noteIndex: NoteIndex.A0,
+    });
+    const abcString = noteToAbcjsString(notes);
+
+    console.log(abcString)
   }
 
   function handleKey(idx: number) {
@@ -28,15 +38,15 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
       <MusicSheet />
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        {Object.entries(VOICINGS).map((item, idx) => {
+        {Voicings.map((item, idx) => {
           return (
             <SelectButton
-              selected={idx === voicing}
-              name={item[1].name}
+              selected={idx === voicing.idx}
+              name={item.name}
               key={idx}
-              onPress={() => handleVoicing(idx)}
+              onPress={() => handleVoicing(Voicings[idx])}
             >
-              {item[1].name}
+              {item.name}
             </SelectButton>
           );
         })}
