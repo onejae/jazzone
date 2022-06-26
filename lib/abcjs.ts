@@ -1,10 +1,48 @@
-import { Voicing, VOICINGNAMES } from "../constants/Voicing";
 import { Note } from "../constants/Note";
 
-export function noteToAbcjsString(notes: Note[]) {
-  notes.forEach(note => {
-    console.log(note)
-  })
+const noteIndexToAbcString = {
+  1: ["C,"],
+  1.5: ["^C,", "_D,"],
+  2: ["D,"],
+  2.5: ["^D,", "_E,"],
+  3: ["E,"],
+  4: ["F,"],
+  4.5: ["^F,", "_G,"],
+  5: ["G,"],
+  5.5: ["^G,", "_A,"],
+  6: ["A,"],
+  6.5: ["^A,", "_B,"],
+  7: ["B,"],
+  8: ["C"],
+  8.5: ["^C", "_D"],
+  9: ["D"],
+  9.5: ["^D", "_E"],
+  10: ["E"],
+  11: ["F"],
+  11.5: ["^F", "_G"],
+  12: ["G"],
+  12.5: ["^G", "_A"],
+  13: ["A"],
+  13.5: ["^A", "_B"],
+  14: ["b"],
+  15: ["c"],
+  15.5: ["^c", "_d"],
+  16: ["d"],
+  16.5: ["^d", "_e"],
+  17: ["e"],
+  18: ["f"],
+  18.5: ["^f", "_g"],
+  19: ["g"],
+  20.5: ["^g", "_a"],
+  20: ["a"],
+  21: ["^a", "_b"],
+  22: ["b"],
+  23: ["^b", "_c2"]
+  
+};
 
-  return ''
+export function noteToAbcjsString(notes: Note[]) {
+  notes.forEach((note) => {});
+
+  return "";
 }

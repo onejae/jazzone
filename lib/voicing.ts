@@ -1,20 +1,18 @@
 import { Key } from "../constants/Key";
 import { Note, NoteIndex, NOTE_NAMES } from "../constants/Note";
-import { Voicing, VOICINGNAMES } from "../constants/Voicing";
-
-function generateBlockVoicingWithTopNote(key: Key, note: Note): Note[] {
-  return [{ noteIndex: NoteIndex.A0 }, { noteIndex: NoteIndex.C0 }];
-}
+import { VoicingName, voicingTable } from "../constants/Voicing";
 
 export function generateVoicingWithTopNote(
   key: Key,
-  voicing: Voicing,
+  voicingName: VoicingName,
   topNote: Note
 ): Note[] {
-  switch (voicing.name) {
-    case VOICINGNAMES.blockVoicing:
-      return generateBlockVoicingWithTopNote(key, topNote);
-  }
+  const notes = voicingTable[voicingName][topNote.noteIndex % 7];
+  let result: Note[] = [];
 
-  return [];
+  notes.forEach((note) => {
+    result.push({ noteIndex: note, length: 4 });
+  });
+
+  return result;
 }

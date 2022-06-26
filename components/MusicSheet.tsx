@@ -5,46 +5,77 @@ import { View } from "../components/Themed";
 
 import { WebView } from "react-native-webview";
 
-import { Asset } from "expo-asset";
 import { readAsStringAsync } from "expo-file-system";
-import { isLoading } from "expo-font";
 
-function useEditorHTML() {
-  const [html, setHtml] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const loadFile = async () => {
-      setLoading(true);
-      try {
-        const files = await Asset.loadAsync(require("../assets/index.html"));
-        if (files.length > 0 && files[0].localUri) {
-          const fileContents = await readAsStringAsync(files[0].localUri);
-          setHtml(fileContents);
-        } else {
-          setError("Unable to fetch localUri");
-        }
-      } catch (err) {
-        setError(err);
-      }
-      setLoading(false);
-    };
-
-    loadFile();
-  }, []);
-
-  return { html, isLoading };
-}
+import { useAssets } from "expo-asset";
 
 export const MusicSheet = () => {
-  const { html, loading } = useEditorHTML();
+  const [index, indexLoadingError] = useAssets(
+    require("../assets/musicsheetview/index.html")
+  );
+
+  const [js, jsLoadingError] = useAssets(
+    require("../assets/musicsheetview/abcjs-basic.html")
+  );
+
+  const [osmd, osmdLoadError] = useAssets(
+    require("../assets/musicsheetview/opensheetmusicdisplay.min.js.html")
+  );
+
+  const [html, setHtml] = useState("");
+
+  const scriptTagOpen = "<script type='text/javascript'>";
+  const scriptTagClose = "</script>";
+
+  const [xml, xmlLoadError] = useAssets(
+    require("../assets/musicsheetview/sample.html")
+  );
+
+  if (index && osmd) {
+    readAsStringAsync(index[0].localUri).then((htmlData) => {
+      readAsStringAsync(osmd[0].localUri).then((osmdData) => {
+        if (xml) {
+          readAsStringAsync(xml[0].localUri).then((xmlData) => {
+            const test = `<script>
+  var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
+    osmd.setOptions({
+      backend: "canvas",
+      drawTitle: false,
+      drawComposer: false,
+      drawingParameters: "compacttight", 
+      drawMeasureNumbers: false,
+      drawTimeSignatures: false,
+    });
+    osmd.load(\`${xmlData}\`).then(function() {
+      osmd.render();
+    })
+    </script>
+  `;
+            setHtml(
+              htmlData + scriptTagOpen + osmdData + scriptTagClose + test
+            );
+          });
+        }
+      });
+    });
+  }
+
+  if (index && js && js[0].localUri) {
+    readAsStringAsync(js[0].localUri).then((data) => {
+      if (index[0].localUri) {
+      }
+    });
+  }
+
   const webref = useRef();
   const notation = `
-      abc = '|eABC|'
-      load();
-      true;
+		var notation = '|^C,|';
+    abc = head + notation;  
+
+    load();
+    true;
     `;
+
   const drawSheet = () => {
     setTimeout(() => {
       if (webref.current) {

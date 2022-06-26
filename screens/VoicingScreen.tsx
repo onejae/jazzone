@@ -3,8 +3,8 @@ import { Text, View } from "../components/Themed";
 import { ToggleButton } from "../components/MenuButton";
 import { MusicSheet } from "../components/MusicSheet";
 import { SelectButton } from "../components/SelectButton";
-import { useState } from "react";
-import { Voicings, Voicing } from "../constants/Voicing";
+import { useEffect, useState } from "react";
+import { VoicingName } from "../constants/Voicing";
 import { Keys } from "../constants/Key";
 import React from "react";
 import { generateVoicingWithTopNote } from "../lib/voicing";
@@ -12,19 +12,24 @@ import { NoteIndex } from "../constants/Note";
 import { noteToAbcjsString } from "../lib/abcjs";
 
 export const VoicingScreen = React.forwardRef((props, ref) => {
-  const [voicing, setVoicing] = useState(Voicings[0]);
+  const voicingDisplayIdx: VoicingName[] = ["blockvoicing", "drop2nd"];
+
+  const [voicingIdx, setVoicingIdx] = useState(0);
   const [key, setKey] = useState(0);
 
-  function handleVoicing(voicing: Voicing) {
-    setVoicing(voicing);
+  useEffect(() => {
+    const notes = generateVoicingWithTopNote(
+      { name: "C", idx: 0 },
+      voicingDisplayIdx[voicingIdx],
+      {
+        noteIndex: 15,
+      }
+    );
 
-    const notes = generateVoicingWithTopNote({ name: "C", idx: 0 }, voicing, {
-      noteIndex: NoteIndex.A0,
-    });
     const abcString = noteToAbcjsString(notes);
 
     console.log(abcString);
-  }
+  }, [voicingIdx]);
 
   function handleKey(idx: number) {
     setKey(idx);
@@ -38,15 +43,15 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
       <MusicSheet />
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.chordContainer}>
-        {Voicings.map((item, idx) => {
+        {voicingDisplayIdx.map((item, idx) => {
           return (
             <SelectButton
-              selected={idx === voicing.idx}
-              name={item.name}
+              selected={idx === voicingIdx}
+              name={item}
               key={idx}
-              onPress={() => handleVoicing(Voicings[idx])}
+              onPress={() => setVoicingIdx(idx)}
             >
-              {item.name}
+              {item}
             </SelectButton>
           );
         })}
