@@ -45,7 +45,19 @@ export const Keys = [
   },
 ];
 
-export type key = "C" | "Db";
+export type KeyName =
+  | "C"
+  | "Db"
+  | "D"
+  | "Eb"
+  | "E"
+  | "F"
+  | "F#"
+  | "G"
+  | "Ab"
+  | "A"
+  | "Bb"
+  | "B";
 
 export interface Key {
   name: string;
