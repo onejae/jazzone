@@ -45,6 +45,8 @@ export const Keys = [
   },
 ];
 
+export type key = "C" | "Db";
+
 export interface Key {
   name: string;
   idx: number;
