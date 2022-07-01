@@ -1,9 +1,9 @@
-import { Platform, StyleSheet } from "react-native"
-import { Pressable } from "react-native"
-import { withSafeAreaInsets } from "react-native-safe-area-context"
-import { Text, View } from "../components/Themed"
-import { ToggleButton } from "../components/MenuButton"
-import Navigation from "../navigation"
+import { Platform, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
+import { Text, View } from "../components/Themed";
+import { MenuButton } from "../components/MenuButton";
+import Navigation from "../navigation";
 
 export default function MainScreen(props: any) {
   return (
@@ -11,14 +11,14 @@ export default function MainScreen(props: any) {
       <Text style={styles.title}> Jazz One</Text>
       <View style={styles.separator} lightColor="#eee" />
       <View style={styles.menu}>
-        <ToggleButton onPress={() => props.navigation.navigate("Voicing")}>
+        <MenuButton onPress={() => props.navigation.navigate("Voicing")}>
           Voicing
-        </ToggleButton>
-        <ToggleButton>Scale</ToggleButton>
-        <ToggleButton>2-5-1</ToggleButton>
+        </MenuButton>
+        <MenuButton>Scale</MenuButton>
+        <MenuButton>2-5-1</MenuButton>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   menu: {
     flexDirection: "row",
   },
-})
+});

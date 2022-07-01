@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { Text, Pressable, Switch } from "react-native";
+import { Text, Pressable, Button } from "react-native";
 import { View } from "./Themed";
 import { StyleSheet } from "react-native";
+import { MenuButton } from "./MenuButton";
 
 export function ControlBar(props: any) {
   const [isQuizEnabled, setQuizEnable] = useState(false);
   const toggleSwitch = () => setQuizEnable((previousState) => !previousState);
   return (
     <View style={styles.container}>
-      <Switch
-        style={styles.modeSwitch}
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isQuizEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isQuizEnabled}
-      />
-      <Pressable>
-        <Text>test</Text>
-      </Pressable>
+      <MenuButton>ON/OFF</MenuButton>
+      <MenuButton>
+        <Text>Start{"\n"}</Text>
+        <Text>Practice</Text>
+      </MenuButton>
+      <MenuButton>Tempo</MenuButton>
     </View>
   );
 }
@@ -28,7 +24,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#521438",
+    height: "100%",
   },
   modeSwitch: {},
 });

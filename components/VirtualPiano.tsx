@@ -1,25 +1,38 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Text, Pressable } from "react-native";
 
-export function MenuButton(props: any) {
-  const [isPress, setIsPress] = useState(false);
+export const VirtualPiano = (props: any) => {
+  const [touch, setTouch] = useState(false);
 
   const touchProps = {
-    style: isPress ? styles.buttonPress : styles.button,
-    onPressOut: () => setIsPress(false),
-    onPressIn: () => setIsPress(true),
+    style:
+      props.selected === true || touch === true
+        ? styles.buttonPress
+        : styles.button,
+    onPressIn: () => {
+      setTouch(true);
+    },
+    onPressOut: () => {
+      setTouch(false);
+    },
     ...props,
   };
 
   return (
     <Pressable {...touchProps}>
-      <Text style={isPress ? styles.buttonTextPress : styles.buttonText}>
+      <Text
+        style={
+          props.selected === true || touch === true
+            ? styles.buttonTextPress
+            : styles.buttonText
+        }
+      >
         {props.children}
       </Text>
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

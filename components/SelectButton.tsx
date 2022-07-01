@@ -42,21 +42,21 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
-    borderColor: "#F28442",
+    borderColor: "#F07810",
     borderRadius: 5,
     padding: 10,
     margin: 5,
   },
   buttonPress: {
-    backgroundColor: "#F28442",
+    backgroundColor: "#F07810",
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#F28442",
+    borderColor: "#F07810",
     padding: 10,
     margin: 5,
   },
   buttonText: {
-    color: "#F28442",
+    color: "#F07810",
   },
   buttonTextPress: {
     color: "white",

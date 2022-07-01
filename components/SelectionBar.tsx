@@ -6,6 +6,7 @@ import { SelectButton } from "../components/SelectButton";
 
 interface SelectionBarProps {
   orderedItemList: string[];
+  onChange?: (idx: number) => void;
 }
 
 export const SelectionBar = (props: SelectionBarProps) => {
@@ -46,6 +47,7 @@ export const SelectionBar = (props: SelectionBarProps) => {
           }
           ios_backgroundColor={CommonStyles.smallSwitch.ios_backgroundColor}
           onValueChange={(value) => {
+            if (props.onChange) props.onChange(0);
             if (multiMode == true) {
               setSelectTable(getEmptyList());
             }
@@ -67,6 +69,7 @@ export const SelectionBar = (props: SelectionBarProps) => {
                   : getEmptyList(idx);
 
                 if (multiMode) current[idx] = !current[idx];
+                if (props.onChange) props.onChange(idx);
 
                 setSelectTable(current);
               }}

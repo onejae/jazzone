@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { StyleSheet, CheckBox } from "react-native";
+import { StyleSheet } from "react-native";
 import { View } from "../components/Themed";
 import { WebView } from "react-native-webview";
 import { readAsStringAsync } from "expo-file-system";
