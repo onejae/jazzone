@@ -1,8 +1,10 @@
-import { Switch, Image, StyleSheet } from "react-native";
+import { Switch, Image, StyleSheet, Text } from "react-native";
 import { View } from "../components/Themed";
 import CommonStyles from "../components/StyleSheet";
 import { useCallback, useState } from "react";
 import { SelectButton } from "../components/SelectButton";
+import { ScreenStackHeaderRightView } from "react-native-screens";
+import Checkbox from "expo-checkbox";
 
 interface SelectionBarProps {
   orderedItemList: string[];
@@ -29,33 +31,6 @@ export const SelectionBar = (props: SelectionBarProps) => {
 
   return (
     <View style={styles.selectionContainer}>
-      <View style={styles.checkBoxContainer}>
-        <Image
-          style={{ height: 20, width: 20 }}
-          source={require("../assets/images/multi-choice.png")}
-        />
-        <Switch
-          style={CommonStyles.smallSwitch}
-          trackColor={{
-            false: CommonStyles.smallSwitch.trackColor.false,
-            true: CommonStyles.smallSwitch.trackColor.true,
-          }}
-          thumbColor={
-            multiMode
-              ? CommonStyles.smallSwitch.thumbColor.true
-              : CommonStyles.smallSwitch.thumbColor.false
-          }
-          ios_backgroundColor={CommonStyles.smallSwitch.ios_backgroundColor}
-          onValueChange={(value) => {
-            if (props.onChange) props.onChange(0);
-            if (multiMode == true) {
-              setSelectTable(getEmptyList());
-            }
-            setMultiMode(value);
-          }}
-          value={multiMode}
-        />
-      </View>
       <View style={styles.chordListContainer}>
         {props.orderedItemList.map((item, idx) => {
           return (
@@ -79,6 +54,28 @@ export const SelectionBar = (props: SelectionBarProps) => {
           );
         })}
       </View>
+      <View style={styles.checkBoxContainer}>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <SelectButton
+            selected={multiMode}
+            onPress={() => {
+              if (multiMode) {
+                setSelectTable(getEmptyList());
+              }
+              setMultiMode(!multiMode);
+            }}
+            borderRadius={45}
+            height={40}
+            width={40}
+          >
+            Multi
+            {/* <Text style={styles.multiSelectText}>Multi</Text> */}
+          </SelectButton>
+        </View>
+        <SelectButton borderRadius={40} height={40} width={40}>
+          CLR
+        </SelectButton>
+      </View>
     </View>
   );
 };
@@ -87,16 +84,26 @@ const styles = StyleSheet.create({
   selectionContainer: {
     display: "flex",
     paddingTop: 0,
+    flexDirection: "row",
   },
   chordListContainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+    flex: 1,
   },
   checkBoxContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     marginRight: 0,
     alignItems: "center",
     marginLeft: "auto",
+  },
+  checkBox: {
+    marginLeft: 10,
+    color: "#000",
+  },
+  multiSelectText: {
+    fontSize: 9,
+    textAlign: "center",
   },
 });

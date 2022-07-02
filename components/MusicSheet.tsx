@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 import { View } from "../components/Themed";
 import { WebView } from "react-native-webview";
 import { readAsStringAsync } from "expo-file-system";
 import { useAssets } from "expo-asset";
+import { StyleProp } from "react-native";
 
-export const MusicSheet = () => {
+interface MusicSheetProps {
+  style: StyleProp<ViewStyle> | undefined;
+}
+export const MusicSheet = (props: MusicSheetProps) => {
   const [index, indexLoadingError] = useAssets(
     require("../assets/musicsheetview/index.html")
   );
@@ -25,7 +29,7 @@ export const MusicSheet = () => {
   const scriptTagClose = "</script>";
 
   const [xml, xmlLoadError] = useAssets(
-    require("../assets/musicsheetview/sample.html")
+    require("../assets/musicsheetview/blockvoicing.html")
   );
 
   if (index && osmd) {
@@ -82,7 +86,7 @@ export const MusicSheet = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={props.style}>
       <WebView
         onLoad={() => {
           drawSheet();
@@ -97,7 +101,7 @@ export const MusicSheet = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
-    display: "flex",
+    // height: 100,
+    // display: "flex",
   },
 });

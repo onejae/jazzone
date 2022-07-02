@@ -16,6 +16,7 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
 
   const voicingDisplayList: VoicingName[] = ["blockvoicing", "drop2nd"];
   const chordDisplayList: ChordName[] = [
+    "6",
     "Maj7",
     "7",
     "m7",
@@ -59,7 +60,7 @@ export const VoicingScreen = React.forwardRef((props, ref) => {
       <View style={styles.separator} lightColor="#eee" />
       <Text style={styles.title}> {title} </Text>
       <View style={styles.separator} lightColor="#eee" />
-      <MusicSheet />
+      <MusicSheet style={styles.musicSheetContainer} />
       <View style={styles.separator} lightColor="#eee" />
       <SelectionBar
         orderedItemList={voicingDisplayList}
@@ -96,11 +97,11 @@ const styles = StyleSheet.create({
     height: 1,
     width: "100%",
   },
-  musicSheet: {
-    height: 200,
-  },
   controlbarContainer: {
-    height: 80,
+    height: 70,
     marginTop: "auto",
+  },
+  musicSheetContainer: {
+    height: 200,
   },
 });

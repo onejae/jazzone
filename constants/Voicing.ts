@@ -5,7 +5,15 @@ export type VoicingIds = {
 
 export type VoicingName = "blockvoicing" | "drop2nd";
 
-export type ChordName = "Maj7" | "7" | "m7" | "dim7" | "sus4" | "aug" | "b9b13";
+export type ChordName =
+  | "6"
+  | "Maj7"
+  | "7"
+  | "m7"
+  | "dim7"
+  | "sus4"
+  | "aug"
+  | "b9b13";
 
 type VoicingTable = {
   [key in VoicingName]: { [key: number]: number[] };
